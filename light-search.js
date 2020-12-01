@@ -7,15 +7,22 @@ const lightSearch = (input, elements, options = {}) => {
       if (element.innerHTML.toLowerCase().includes(input.value.toLowerCase())) {
           element.style.display = options.display ? options.display : 'block';
           result++;
+
+          if(options.onclick) {
+            element.addEventListener('click', options.onclick);
+          }
+
       } else {
           element.style.display = options.hide ? options.hide : 'none';
       }
     }
 
-    if(options.displayontype && input.value.length >= options.displayontype) {
-      options.parent.style.display = options.displayparent ? options.displayparent : 'block';
-    } else {
-      options.parent.style.display = options.hideparent ? options.hideparent : 'none';
+    if(options.displayontype) {
+      if(input.value.length >= options.displayontype) {
+        options.parent.style.display = options.displayparent ? options.displayparent : 'block';
+      } else {
+        options.parent.style.display = options.hideparent ? options.hideparent : 'none';
+      }
     }
 
     if (options.noresultsmsg && options.parent) {
